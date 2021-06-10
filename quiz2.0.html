@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='icon' href='https://cdn3.iconfinder.com/data/icons/brain-games/1042/Quiz-Games.png'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Libre+Baskerville:wght@700&family=Old+Standard+TT&display=swap"
+        rel="stylesheet">
+    <title>Quiz 2021</title>
+    <style>
+        .container {
+            border: 0.5rem solid black;
+            border-radius: 0.9rem;
+            margin: 2rem;
+            padding: 0.5rem 2rem 4rem 2rem;
+            height: 27rem;
+            position: relative;
+            opacity:1;
+        }
+
+        .Q1,.Q2 {
+            font-size: 1.5rem;
+            font-family: 'Libre Baskerville', serif;
+        }
+
+        .answer {
+            width: 10rem;
+            text-align: right;
+            position: absolute;
+            top: 10rem;
+            left: 50rem;
+        }
+
+        #yes_ans,
+        #wrong_ans {
+            /* display:none; */
+        }
+
+        .options{
+            font-size: 1.1rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        input[type='radio'] {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .btn {
+            background: rgb(44, 177, 44);
+        }
+
+        .btn:hover {
+            background: green;
+        }
+
+        .btnr {
+            background: rgb(177, 46, 177);
+        }
+
+        .btnr:hover {
+            background: purple;
+        }
+
+        .btn,
+        .btnr {
+            color: white;
+            border: 0;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            margin: 0rem;
+            width: 20rem;
+        }
+
+        .loader {
+            border: 1rem solid rgb(187, 187, 187);
+            height: 3rem;
+            width: 3rem;
+            border-top-color: #3498db;
+            border-radius: 30rem;
+            animation: spin 1.5s linear infinite;
+            position:absolute;
+            top:14rem;
+            left:33rem;
+            display: none;
+            opacity:1;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <h1 style="text-align:center; font-size:4rem;">QUIZ 2.0</h1>
+        <div id="questions" style="opacity:1;">
+            <div class="question1" id="question1">
+                <label id="Q1" class="Q1"><em><b>Question 1.</b></em> HTML is used for ____ ? </label>
+                <br>
+                <img id="ans_img" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Question_mark_alternate.svg"
+                    class="answer">
+                <br>
+                <input type="radio" name="Q1" id="option1" class="Q1">
+                <label for="option1" class="options">Designing WEB Pages</label>
+                <br>
+                <input type="radio" name="Q1" id="option2" class="Q1">
+                <label for="option2" class="options">Constructing Graphs</label>
+                <br>
+                <input type="radio" name="Q1" id="option3" class="Q1">
+                <label for="option3" class="options">Developing Softwares</label>
+                <br>
+                <input type="radio" name="Q1" id="option4" class="Q1">
+                <label for="option4" class="options">Machine Learning</label>
+                <br><br><br>
+                <input type="button" id="btn_next" class="btn" value="Next" onclick="Q1()">
+                <input type="reset" id="btn_reset" class="btnr" value="RESET">
+            </div>
+            <div class="question2" id="question2" style="display:none;">
+                <label id="Q2" class="Q2"><em><b>Question 2.</b></em> HTML stands for ____ ? </label>
+                <br>
+                <img id="ans_img" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Question_mark_alternate.svg"
+                    class="answer">
+                <br>
+                <input type="radio" name="Q2" id="option1" class="Q2">
+                <label for="option1" class="options">HIGHER TRANSFER MARKUP LANGUAGE</label>
+                <br>
+                <input type="radio" name="Q2" id="option2" class="Q2">
+                <label for="option2" class="options">HIGHER TEXT MANUAL LANGUAGE</label>
+                <br>
+                <input type="radio" name="Q2" id="option3" class="Q2">
+                <label for="option3" class="options">HYPER TEXTUAL MARKUP LANGUAGE</label>
+                <br>
+                <input type="radio" name="Q2" id="option4" class="Q2">
+                <label for="option4" class="options">HYPER TEXT MARKUP LANGUAGE</label>
+                <br><br><br>
+                <input type="button" id="btn_next" class="btn" value="Next" onclick="Q2()">
+                <input type="reset" id="btn_reset" class="btnr" value="RESET">
+            </div>
+        </div>
+        <div class="loader" id="loader"></div>
+    </div>
+    <script type="text/javascript">
+        var option;
+        function yesToAnswer() {
+            document.getElementById('ans_img').src = 'https://similesmiles.com/simages/right.png';
+        }
+        function noToAnswer() {
+            document.getElementById('ans_img').src = 'https://img.pngio.com/wrong-png-98-images-in-collection-page-3-wrong-png-512_512.png';
+        }
+        function give_ans(option) {
+            var ans = document.getElementById(option).checked;
+            document.getElementById('btn_next').disabled = true;
+            document.getElementById('btn_reset').disabled = true;
+            document.getElementById('btn_next').style.cursor = 'no-drop';
+            document.getElementById('btn_reset').style.cursor = 'no-drop';
+            return ans;
+        }
+        function next(){
+            document.getElementById('questions').style.opacity = 0.4;
+            document.getElementById('loader').style.display = 'block';
+            setTimeout(function hide_que(){ 
+                document.getElementById('questions').style.display = '';
+                document.getElementById('questions').style.opacity = 1;
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('question1').style.display = 'none';
+                document.getElementById('question2').style.display = '';
+            }, 3000);
+        }
+        function Q1() {
+            if (give_ans('option1') === false) {
+                noToAnswer();
+            }
+            else {
+                yesToAnswer();
+            }
+            setTimeout(next, 2000);
+        }
+        function Q2() {
+            if (give_ans('option4') === false) {
+                noToAnswer();
+            }
+            else {
+                yesToAnswer();
+            }
+            setTimeout(next, 2000);
+            document.getElementById('question2').style.display = '';
+        }
+
+
+    </script>
+</body>
+
+</html>
